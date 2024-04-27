@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результат</title>
+</head>
+<body>
+    <h2>Таблиця значень тригонометричної функції</h2>
+    <table border="1" id="resultTable">
+      <thead>
+          <tr>
+              <th colspan="2">Кут</th>
+              <th rowspan="2">Значення</th>
+          </tr>
+          <tr>
+              <th> в градусах </th>
+              <th> в радіанах </th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Тут буде ваша таблиця, яку ви заповните за допомогою JavaScript -->
+      </tbody>
+  </table> 
+
+  <script>
+      var func = localStorage.getItem('function');
+      var beginning = parseInt(localStorage.getItem('beginning'));
+      var end = parseInt(localStorage.getItem('end'));
+      var step = parseFloat(localStorage.getItem('step'));
+
+      var tableBody = document.querySelector('#resultTable tbody');
+
+      for (var angle = beginning; angle <= end; angle += step) {
+         var radianValue = (angle * Math.PI) / 180;
+         var resultValue = '';
+
+         switch(func) {
+            case 'sin':
+                  resultValue = Math.sin(radianValue).toFixed(4);
+                  break;
+            case 'cos':
+                  resultValue = Math.cos(radianValue).toFixed(4);
+                  break;
+            case 'tg':
+                  resultValue = Math.tan(radianValue).toFixed(4);
+                  break;
+            default:
+                  resultValue = 'Невідома функція';
+         }
+
+         var row = document.createElement('tr');
+         var angleDegreeCell = document.createElement('td');
+         var angleRadianCell = document.createElement('td');
+         var resultCell = document.createElement('td');
+
+         angleDegreeCell.textContent = angle;
+         angleRadianCell.textContent = (angle * Math.PI / 180).toFixed(4);
+         resultCell.textContent = resultValue;
+
+         row.appendChild(angleDegreeCell);
+         row.appendChild(angleRadianCell);
+         row.appendChild(resultCell);
+
+         tableBody.appendChild(row);
+      }
+   </script>
+</body>
+</html>

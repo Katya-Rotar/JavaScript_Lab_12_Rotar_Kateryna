@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тригометричні функції</title>
+</head>
+<body>
+   <h2>Тригометричні функції</h2>
+   <label for="function">Функція........</label>
+   <select id="function">
+      <option value="sin">sin</option>
+      <option value="cos">cos</option>
+      <option value="tg">tg</option>
+   </select>
+   <h3>Введіть діапазон кутів в градусах</h3>
+   <label for="beginning">початок</label>
+   <input type="number" id="beginning" min="1">
+   <br><br>
+   <label for="end">кінець</label>
+   <input type="number" id="end" min="1">
+   <br><br>
+   <label for="step">крок</label>
+   <input type="number" id="step" min="1">
+
+   <input type="submit" value="Обчислити" onclick="generateTable()">
+
+   <script>
+      function generateTable(){
+         var func = document.getElementById("function").value;
+         var beginning = parseInt(document.getElementById("beginning").value);
+         var end = parseInt(document.getElementById("end").value);
+         var step = parseFloat(document.getElementById("step").value);
+
+         if (isNaN(beginning) || isNaN(end) || isNaN(step)) {
+            alert('Будь ласка, введіть коректні числові значення');
+            return;
+         }
+
+         localStorage.setItem('function', func);
+         localStorage.setItem('beginning', beginning);
+         localStorage.setItem('end', end);
+         localStorage.setItem('step', step);
+
+         window.open('second_page.html', '_blank');
+      }
+   </script>
+</body>
+</html>

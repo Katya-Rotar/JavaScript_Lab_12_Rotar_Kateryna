@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Облік надходження товарів</title>
+</head>
+<body onload="updateAllTotals()">
+   <h2>Облік надходження товарів</h2>
+   <table border="1">
+      <thead>
+          <tr>
+              <th>Назва товара</th>
+              <th>Ціна за одиницю</th>
+              <th>Кількість</th>
+              <th>Вартість</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr id="deskRow">
+              <td id="desk">Письмовий стіл</td>
+              <td id="deskPrice">12000</td>
+              <td id="deskQuantity">5</td>
+              <td id="deskTotal"></td>
+          </tr>
+          <tr id="diningTableRow">
+              <td id="diningTable">Обідній стіл</td>
+              <td id="diningTablePrice">8000</td>
+              <td id="diningTableQuantity">10</td>
+              <td id="diningTableTotal"></td>
+          </tr>
+          <tr id="chairRow">
+              <td id="chair">Стілець</td>
+              <td id="chairPrice">20</td>
+              <td id="chairQuantity">1200</td>
+              <td id="chairTotal"></td>
+          </tr>
+          <tr id="bookcaseRow">
+              <td id="bookcase">Книжкова шафа</td>
+              <td id="bookcasePrice">14200</td>
+              <td id="bookcaseQuantity">4</td>
+              <td id="bookcaseTotal"></td>
+          </tr>
+      </tbody>
+      <tbody>
+         <tr>
+            <td colspan="3">Загалом</td>
+            <td id="totalCost"></td>
+         </tr>
+      </tbody>
+  </table> 
+
+  <h2>Зміна ціни і кількості</h2>
+  <label for="goods">Товар:</label>
+  <select id="goodsSelect">
+      <option value="desk">Письмовий стіл</option>
+      <option value="diningTable">Обідній стіл</option>
+      <option value="chair">Стілець</option>
+      <option value="bookcase">Книжкова шафа</option>
+  </select>
+  <br><br>
+  <label for="newPrice">Ціна:</label>
+  <input type="number" id="newPrice" min="1">
+  <br><br>
+  <label for="newQuantity">Кількість:</label>
+  <input type="number" id="newQuantity" min="1">
+  <br><br>
+  <input type="submit" value="Змінити" onclick="update()">
+  
+  <script>
+    function updateTotal(product) {
+      var price = parseInt(document.getElementById(product + 'Price').textContent);
+      var quantity = parseInt(document.getElementById(product + 'Quantity').textContent);
+      var total = price * quantity;
+      document.getElementById(product + 'Total').textContent = total;
+      updateTotalCost();
+   }
+
+   function updateTotalCost() {
+      var deskTotal = parseInt(document.getElementById('deskTotal').textContent);
+      var diningTableTotal = parseInt(document.getElementById('diningTableTotal').textContent);
+      var chairTotal = parseInt(document.getElementById('chairTotal').textContent);
+      var bookcaseTotal = parseInt(document.getElementById('bookcaseTotal').textContent);
+      var totalCost = deskTotal + diningTableTotal + chairTotal + bookcaseTotal;
+      document.getElementById('totalCost').textContent = totalCost;
+   }
+
+   function updateAllTotals() {
+      updateTotal('desk');
+      updateTotal('diningTable');
+      updateTotal('chair');
+      updateTotal('bookcase');
+   }
+
+   function update() {
+      var selectedProduct = document.getElementById('goodsSelect').value;
+      var newPrice = document.getElementById('newPrice').value;
+      var newQuantity = document.getElementById('newQuantity').value;
+      
+      var priceCell = document.getElementById(selectedProduct + 'Price');
+      var quantityCell = document.getElementById(selectedProduct + 'Quantity');
+      var totalCell = document.getElementById(selectedProduct + 'Total');
+      
+      priceCell.textContent = newPrice;
+      quantityCell.textContent = newQuantity;
+      totalCell.textContent = newPrice * newQuantity;
+      
+      updateTotalCost();
+   }
+  </script>
+</body>
+</html>
